@@ -1,0 +1,46 @@
+package se.miun.emsj2403.dt187g.jpaint.geometry;
+
+/**
+ * En klass som representear en punkt i ett koordinatsystem.
+ *
+ * @author Emma Sjöberg (emsj2403)
+ * @version 1.0
+ */
+
+public class Point {
+ 
+    private double x;
+    private double y;
+
+    public Point() {
+        x = 0;
+        y = 0;
+    }
+
+    public Point(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public double getX() {
+        return x;
+    }
+ 
+    public double getY() {
+        return y;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+ 
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + x + ", " + y + "]";
+    }
+}
+ 
