@@ -15,13 +15,6 @@ import se.miun.emsj2403.dt187g.jpaint.geometry.Circle;
 import se.miun.emsj2403.dt187g.jpaint.geometry.Point;
 import se.miun.emsj2403.dt187g.jpaint.geometry.Rectangle;
 
-/**
- * En klass som representerar ritytan.
- *
- * @author Emma Sjöberg (emsj2403)
- * @version 1.0
- */
-
 public class DrawingPanel extends JPanel {
 
     private Drawing drawing;

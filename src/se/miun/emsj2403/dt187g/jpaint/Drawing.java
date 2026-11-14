@@ -6,14 +6,6 @@ import java.util.List;
 
 import se.miun.emsj2403.dt187g.jpaint.geometry.Shape;
 
-/**
- * En klass som representerar en teckning som innehåller flera geometriska
- * figurer.
- *
- * @author Emma Sjöberg (emsj2403)
- * @version 1.0
- */
-
 public class Drawing implements Drawable {
 
     private String name;

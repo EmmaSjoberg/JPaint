@@ -3,13 +3,6 @@ package se.miun.emsj2403.dt187g.jpaint.geometry;
 import java.util.ArrayList;
 import se.miun.emsj2403.dt187g.jpaint.Drawable;
 
-/**
- * En superklass som representerar olika geometriska figurer.
- *
- * @author Emma Sjöberg (emsj2403)
- * @version 1.0
- */
-
 public abstract class Shape implements Drawable {
 
     protected String color;

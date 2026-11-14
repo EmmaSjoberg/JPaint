@@ -15,14 +15,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-/**
- * En klass som representerar huvudfönstret för JPaint och hanterar
- * programmets grafiska komponenter och mushändelser.
- *
- * @author Emma Sjöberg (emsj2403)
- * @version 1.0
- */
+import javax.swing.JLabel;
+import javax.swing.BoxLayout;
 
 public class JPaintFrame extends JFrame {
 
@@ -53,9 +47,10 @@ public class JPaintFrame extends JFrame {
         setLayout(new BorderLayout());
 
         JPanel topPanel = new JPanel();
-        topPanel.setPreferredSize(new Dimension(0, 58));
-        topPanel.setBackground(new Color(245, 247, 250));
-        topPanel.setBorder(BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        topPanel.setPreferredSize(new Dimension(0, 68));
+        topPanel.setBackground(new Color(248, 250, 252));
+        topPanel.setBorder(
+                BorderFactory.createEmptyBorder(12, 18, 12, 18));
 
         colorPalettePanel = new ColorPalettePanel();
 
@@ -73,7 +68,9 @@ public class JPaintFrame extends JFrame {
 
         JComboBox<String> shapeComboBox = new JComboBox<>(shapes);
         shapeComboBox.setSelectedItem("Rectangle");
-        shapeComboBox.setPreferredSize(new Dimension(140, 36));
+        shapeComboBox.setPreferredSize(new Dimension(150, 36));
+        shapeComboBox.setBackground(Color.WHITE);
+        shapeComboBox.setForeground(new Color(51, 65, 85));
         shapeComboBox.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
 
         drawingPanel = new DrawingPanel();
@@ -114,8 +111,20 @@ public class JPaintFrame extends JFrame {
             }
         });
 
-        topPanel.setLayout(new BorderLayout());
-        topPanel.add(colorPalettePanel, BorderLayout.CENTER);
+        JLabel colorsLabel = new JLabel("COLORS");
+        colorsLabel.setFont(new Font("SansSerif", Font.BOLD, 11));
+        colorsLabel.setForeground(new Color(100, 116, 139));
+        colorsLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        JPanel colorsSection = new JPanel();
+        colorsSection.setLayout(new BoxLayout(colorsSection, BoxLayout.Y_AXIS));
+        colorsSection.setOpaque(false);
+
+        colorsSection.add(colorsLabel);
+        colorsSection.add(colorPalettePanel);
+
+        topPanel.setLayout(new BorderLayout(15, 0));
+        topPanel.add(colorsSection, BorderLayout.LINE_START);
         topPanel.add(shapeComboBox, BorderLayout.LINE_END);
 
         c.add(topPanel, BorderLayout.PAGE_START);

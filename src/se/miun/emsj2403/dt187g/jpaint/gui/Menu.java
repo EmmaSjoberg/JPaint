@@ -8,14 +8,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
-/**
- * <h1>Menu</h1>
- *
- * @author Emma Sjöberg
- * @version 0.1
- * @since 2026-09-16
- */
-
 public class Menu extends JMenuBar {
 
     public void addJMenu(String name) {
@@ -32,7 +24,7 @@ public class Menu extends JMenuBar {
     }
 
     public void addJMenuItem(String parentName, String itemName,
-                             ActionListener al) {
+            ActionListener al) {
         JComponent component = getComponentByName(parentName);
 
         if (component instanceof JMenu) {
@@ -45,7 +37,7 @@ public class Menu extends JMenuBar {
     }
 
     public void addJMenuItem(String parentName, String itemName,
-                             ActionListener al, KeyStroke keyStroke) {
+            ActionListener al, KeyStroke keyStroke) {
         JComponent component = getComponentByName(parentName);
 
         if (component instanceof JMenu) {
@@ -96,4 +88,3 @@ public class Menu extends JMenuBar {
         return null;
     }
 }
- 

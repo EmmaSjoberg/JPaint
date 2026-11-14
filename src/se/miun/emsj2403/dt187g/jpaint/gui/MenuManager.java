@@ -9,19 +9,21 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.KeyStroke;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import se.miun.emsj2403.dt187g.jpaint.Drawing;
 import se.miun.emsj2403.dt187g.jpaint.DrawingException;
 import se.miun.emsj2403.dt187g.jpaint.FileHandler;
 import se.miun.emsj2403.dt187g.jpaint.geometry.Circle;
 import se.miun.emsj2403.dt187g.jpaint.geometry.Rectangle;
 
-/**
- * <h1>Menu</h1>
- *
- * @author Emma Sjöberg
- * @version 0.1
- * @since 2026-09-16
- */
 public class MenuManager {
 
     private JPaintFrame frame;
@@ -71,6 +73,11 @@ public class MenuManager {
 
         menu.addJMenuItem(
                 sFile,
+                "Export as PNG...",
+                createExportPngAction());
+
+        menu.addJMenuItem(
+                sFile,
                 "Info",
                 showInfoAction());
 
@@ -113,7 +120,6 @@ public class MenuManager {
                 sDrawing,
                 "Author...",
                 createChangeAuthorAction());
-
 
     }
 
@@ -374,6 +380,84 @@ public class MenuManager {
                 JOptionPane.showMessageDialog(
                         frame,
                         e.getMessage());
+            }
+        };
+    }
+
+    private ActionListener createExportPngAction() {
+        return event -> {
+
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Export Drawing as PNG");
+            fileChooser.setFileFilter(
+                    new FileNameExtensionFilter("PNG Images (*.png)", "png"));
+            fileChooser.setAcceptAllFileFilterUsed(false);
+
+            int result = fileChooser.showSaveDialog(frame);
+
+            if (result != JFileChooser.APPROVE_OPTION) {
+                return;
+            }
+
+            File file = fileChooser.getSelectedFile();
+
+            if (!file.getName().toLowerCase(java.util.Locale.ROOT).endsWith(".png")) {
+                file = new File(file.getAbsolutePath() + ".png");
+            }
+
+            if (file.exists()) {
+                int confirm = JOptionPane.showConfirmDialog(
+                        frame,
+                        "The file already exists. Do you want to replace it?",
+                        "Confirm Overwrite",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE);
+
+                if (confirm != JOptionPane.YES_OPTION) {
+                    return;
+                }
+            }
+
+            int width = drawingPanel.getWidth();
+            int height = drawingPanel.getHeight();
+
+            if (width <= 0 || height <= 0) {
+                JOptionPane.showMessageDialog(
+                        frame,
+                        "The drawing area has an invalid size.",
+                        "Export Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            BufferedImage image = new BufferedImage(
+                    width,
+                    height,
+                    BufferedImage.TYPE_INT_RGB);
+
+            Graphics2D graphics = image.createGraphics();
+
+            try {
+                drawingPanel.printAll(graphics);
+            } finally {
+                graphics.dispose();
+            }
+
+            try {
+                if (!ImageIO.write(image, "png", file)) {
+                    throw new IOException("PNG format is not supported.");
+                }
+
+                JOptionPane.showMessageDialog(
+                        frame,
+                        "Drawing exported successfully!");
+
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(
+                        frame,
+                        "Could not export drawing: " + e.getMessage(),
+                        "Export Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         };
     }

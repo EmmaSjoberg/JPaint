@@ -2,16 +2,13 @@ package se.miun.emsj2403.dt187g.jpaint.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-/**
- * En klass som representerar statusfältet i JPaint.
- *
- * @author Emma Sjöberg (emsj2403)
- * @version 1.0
- */
 
 public class StatusBarPanel extends JPanel {
 
@@ -26,33 +23,45 @@ public class StatusBarPanel extends JPanel {
 
     public StatusBarPanel() {
 
-        setBackground(Color.LIGHT_GRAY);
-
-        coordinates = new JLabel("0, 0");
-        selectedColor = new JPanel();
-        leftPanel = new JPanel();
-        rightPanel = new JPanel();
+        Color background = new Color(248, 250, 252);
+        Color textColor = new Color(100, 116, 139);
+        Font font = new Font("SansSerif", Font.PLAIN, 12);
 
         setLayout(new BorderLayout());
+        setBackground(background);
+        setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
 
-        selectedColor.setBackground(Color.BLACK);
-
-        leftPanel.setBackground(Color.LIGHT_GRAY);
+        // Coordinates
+        coordinates = new JLabel("0, 0");
+        coordinates.setFont(font);
 
         JLabel coordinatesLabel = new JLabel("Coordinates: ");
+        coordinatesLabel.setForeground(textColor);
+        coordinatesLabel.setFont(font);
 
-        leftPanel.add(coordinatesLabel, BorderLayout.LINE_START);
-        leftPanel.add(coordinates, BorderLayout.LINE_END);
+        leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
+        leftPanel.setBackground(background);
+        leftPanel.add(coordinatesLabel);
+        leftPanel.add(coordinates);
 
-        rightPanel.setBackground(Color.LIGHT_GRAY);
-
+        // Selected color
         JLabel selectedColorLabel = new JLabel("Selected color: ");
+        selectedColorLabel.setForeground(textColor);
+        selectedColorLabel.setFont(font);
 
-        rightPanel.add(selectedColorLabel, BorderLayout.LINE_START);
-        rightPanel.add(selectedColor, BorderLayout.LINE_END);
+        selectedColor = new JPanel();
+        selectedColor.setBackground(Color.BLACK);
+        selectedColor.setPreferredSize(new Dimension(14, 14));
+        selectedColor.setBorder(
+                BorderFactory.createLineBorder(new Color(200, 205, 215)));
 
-        this.add(leftPanel, BorderLayout.LINE_START);
-        this.add(rightPanel, BorderLayout.LINE_END);
+        rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 0));
+        rightPanel.setBackground(background);
+        rightPanel.add(selectedColorLabel);
+        rightPanel.add(selectedColor);
+
+        add(leftPanel, BorderLayout.LINE_START);
+        add(rightPanel, BorderLayout.LINE_END);
     }
 
     public void updateCoordinates(int x, int y) {

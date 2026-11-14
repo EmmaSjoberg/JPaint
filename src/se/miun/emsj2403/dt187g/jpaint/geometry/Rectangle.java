@@ -1,12 +1,5 @@
 package se.miun.emsj2403.dt187g.jpaint.geometry;
 
-/**
- * En klass som representerar en rektangel och ärver från Shape.
- *
- * @author Emma Sjöberg (emsj2403)
- * @version 1.0
- */
-
 public class Rectangle extends Shape {
 
     public Rectangle(Point p, String color) {
